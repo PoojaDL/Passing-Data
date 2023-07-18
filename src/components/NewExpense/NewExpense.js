@@ -2,10 +2,18 @@ import React from "react";
 import ExpenseForm from "./ExpenseForm";
 import "./NewExpense.css";
 
-const NewExpense = () => {
+const NewExpense = (props) => {
+  const newExpense = (expense) => {
+    const newExpenseItem = {
+      ...expense,
+      id: Math.random().toString(),
+    };
+
+    props.onAddingExpense(newExpenseItem);
+  };
   return (
     <div className="new-expense">
-      <ExpenseForm />
+      <ExpenseForm onNewExpense={newExpense} />
     </div>
   );
 };
