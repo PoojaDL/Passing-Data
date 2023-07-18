@@ -2,35 +2,52 @@ import React, { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = () => {
-  const [title, enteredTitle] = useState("");
-  const [amount, enteredAmount] = useState("");
-  const [date, enteredDate] = useState("");
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredDate, setEnteredDate] = useState("");
 
   const addTitle = (event) => {
-    console.log(title);
-    enteredTitle(event.target.value);
+    setEnteredTitle(event.target.value);
   };
 
   const addAmount = (event) => {
-    console.log(amount);
-    enteredAmount(event.target.value);
+    setEnteredAmount(event.target.value);
   };
 
   const addDate = (event) => {
-    console.log(date);
-    enteredDate(event.target.value);
+    setEnteredDate(event.target.value);
+  };
+
+  const formSubmitted = (event) => {
+    event.preventDefault();
+    const newExpenseObj = {
+      title: enteredTitle,
+      amout: enteredAmount,
+      date: new Date(enteredDate),
+    };
+
+    console.log(newExpenseObj);
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
   };
 
   return (
-    <form>
+    <form onSubmit={formSubmitted}>
       <div className="new-expense__controls">
         <div className="new-expense__controls">
           <label>Title</label>
-          <input type="text" onChange={addTitle} />
+          <input type="text" value={enteredTitle} onChange={addTitle} />
         </div>
         <div className="new-expense__controls">
           <label>Amount</label>
-          <input type="number" min="0.01" step="0.01" onChange={addAmount} />
+          <input
+            type="number"
+            min="0.01"
+            step="0.01"
+            value={enteredAmount}
+            onChange={addAmount}
+          />
         </div>
         <div className="new-expense__controls">
           <label>Date</label>
@@ -38,6 +55,7 @@ const ExpenseForm = () => {
             type="date"
             min="2020-01-01"
             max="2023-12-31"
+            value={enteredDate}
             onChange={addDate}
           />
         </div>
