@@ -12,7 +12,7 @@ const Expenses = (props) => {
   };
 
   const newItemList = props.expenses
-    .map((expenses, index) => (
+    .map((expenses) => (
       <ExpenseItem
         key={expenses.id}
         title={expenses.title}
@@ -31,7 +31,12 @@ const Expenses = (props) => {
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
-      {newItemList.length === 0 ? <p>No expense found</p> : newItemList}
+      {newItemList.length === 0 && <p>No expense found</p>}
+      {newItemList.length === 1 && newItemList}
+      {newItemList.length === 1 && (
+        <p>Only single Expense here. Please add more... </p>
+      )}
+      {newItemList.length > 1 && newItemList}
     </Card>
   );
 };
